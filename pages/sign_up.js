@@ -1,16 +1,17 @@
 import React, {useState} from "react"
-import {useRouter} from 'next/router'
-import useAuth from '../context/AuthUserContext'
 import Navbar from "../components/Navbar"
 import Head from "next/head"
 import styles from '../styles/Auth.module.css'
 import Link from "next/link"
+import { useAuth } from "../context/AuthUserContext"
+import { useRouter } from "next/router"
 
 const Register = () => {
 
     const [email, setEmail] = useState("")
     const [passwordOne, setPasswordOne] = useState("")
     const [passwordTwo, setPasswordTwo] = useState("")
+    
     const router = useRouter()
     const [error, setError] = useState(null)
 
@@ -21,7 +22,7 @@ const Register = () => {
         if(passwordOne === passwordTwo){
             createUserWithPassword(email, passwordOne)
             .then(authUser => {
-                router.push("/")
+                router.push("/teslaaccount")
             })
             .catch(error => {
                 setError(error.message)
@@ -46,29 +47,27 @@ const Register = () => {
 
                 <label htmlFor="email">Email Address</label>
                 <input 
-                type="email"
-                value={email}
-                onChange={(event) => setPasswordOne(event.target.value)}
-                name="email"
-                className={styles.input}
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    name="email"
+                    className={styles.input}
                 />
-
-                
-                <label htmlFor="email">Confirm Password</label>
+                <label htmlFor="passwordOne">Confirm Password</label>
                 <input 
-                type="password"
-                value={passwordTwo}
-                onChange={(event) => setPasswordTwo(event.target.value)}
-                name="passwordTwo"
-                className={styles.input}
+                    type="password"
+                    value={passwordOne}
+                    onChange={(event) => setPasswordOne(event.target.value)}
+                    name="passwordTwo"
+                    className={styles.input}
                 />
-                <label htmlFor="email">Confirm Password</label>
+                <label htmlFor="passwordTwo">Confirm Password</label>
                 <input 
-                type="password"
-                value={passwordTwo}
-                onChange={(event) => setPasswordTwo(event.target.value)}
-                name="passwordTwo"
-                className={styles.input}
+                    type="password"
+                    value={passwordTwo}
+                    onChange={(event) => setPasswordTwo(event.target.value)}
+                    name="passwordTwo"
+                    className={styles.input}
                 />
 
                 <button className={styles.loginBtn}>Create Account</button>
